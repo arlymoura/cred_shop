@@ -50,6 +50,7 @@ gem "bootsnap", require: false
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem "rspec-rails"
   gem 'dotenv-rails'
   gem 'factory_bot_rails'
   gem 'faker'
@@ -75,10 +76,10 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem 'database_cleaner'
-  gem "rspec-rails"
   gem "capybara"
   gem "selenium-webdriver"
-
+  gem "shoulda-matchers", "~> 4.5"
+  gem "simplecov", "~> 0.21.2", require: false
 end
 
 # Frontend
@@ -101,3 +102,5 @@ gem 'sidekiq'
 
 # Use Redis adapter to run Action Cable in production
 gem "redis", "~> 4.0"
+
+gem "simplecov_json_formatter", "~> 0.1.4", :group => :test, :require => false
