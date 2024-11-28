@@ -1,7 +1,36 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+# db/seeds.rb
+
+require 'faker'
+
+puts 'Seeding Proponets...'
+
+20.times do
+  proponent = Proponent.create!(
+    name: Faker::Name.name,
+    cpf: Faker::Number.number(digits: 11),
+    date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 65)
+  )
+
+  proponent.create_address!(
+    street: Faker::Address.street_name,
+    number: Faker::Address.building_number,
+    neighborhood: Faker::Address.community,
+    city: Faker::Address.city,
+    state: Faker::Address.state_abbr,
+    zip_code: Faker::Address.zip_code
+  )
+
+  proponent.create_financial_info!(
+    salary: Faker::Number.decimal(l_digits: 4, r_digits: 2)
+  )
+
+  2.times do
+    proponent.phones.create!(
+      phone_number: Faker::PhoneNumber.cell_phone_in_e164,
+      phone_type: %w[personal reference].sample
+    )
+  end
+end
+
+puts 'Seeding completed successfully!'
+
