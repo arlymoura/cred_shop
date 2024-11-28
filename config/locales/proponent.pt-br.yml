@@ -1,0 +1,25 @@
+pt-BR:
+  activerecord:
+    models:
+      proponent: "Proponente"
+      address: "Endereço"
+      financial_data: "Dados Financeiros"
+      phone: "Telefone"
+    attributes:
+      proponent:
+        name: "Nome"
+        cpf: "CPF"
+        date_of_birth: "Data de Nascimento"
+      address:
+        street: "Logradouro"
+        number: "Número"
+        neighborhood: "Bairro"
+        city: "Cidade"
+        state: "Estado"
+        zip_code: "CEP"
+      financial_info:
+        salary: "Salário"
+        inss_discount: "Desconto INSS"
+      phone:
+        phone_number: "Número de Telefone"
+        phone_type: "Tipo de Telefone"
