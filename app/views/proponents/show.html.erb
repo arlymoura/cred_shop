@@ -1,0 +1,9 @@
+<p style="color: green"><%= notice %></p>
+<h1>Detalhes sobre <%= Proponent.model_name.human %></h1>
+
+<%= render @proponent %>
+
+<div>
+  <%= link_to "Voltar", proponents_path, class: 'btn btn-danger' %>
+  <%= link_to "Editar", edit_proponent_path(@proponent), class: 'btn btn-warning' %>
+</div>

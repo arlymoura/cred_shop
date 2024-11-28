@@ -4,6 +4,7 @@ class Proponent < ApplicationRecord
   has_many :phones, dependent: :destroy
 
   accepts_nested_attributes_for :address, :financial_info, :phones
+  delegate :salary, :inss_discount, to: :financial_info, prefix: true
 
   validates :name, :cpf, presence: true
 end

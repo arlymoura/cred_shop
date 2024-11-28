@@ -1,0 +1,41 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3">Proponentes</h1>
+    <%= link_to 'Novo', new_proponent_path, class: 'btn btn-primary' %>
+  </div>
+
+  <table class="table table-striped table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>#</th>
+        <th>Nome</th>
+        <th>CPF</th>
+        <th>Data de Nascimento</th>
+        <th>Salário</th>
+        <th>Desconto INSS</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @proponents.each_with_index do |proponent, index| %>
+        <tr>
+          <td><%= (index + 1) + ((@proponents.current_page - 1) * @proponents.limit_value) %></td>
+          <td><%= proponent.name %></td>
+          <td><%= proponent.cpf %></td>
+          <td><%= proponent.date_of_birth.strftime('%d/%m/%Y') if proponent.date_of_birth %></td>
+          <td><%= number_to_currency(proponent.financial_info_salary) %></td>
+          <td><%= number_to_currency(proponent.financial_info_inss_discount) %></td>
+          <td>
+            <%= link_to 'Mostar', proponent_path(proponent), class: 'btn btn-sm btn-info me-1' %>
+            <%= link_to 'Editar', edit_proponent_path(proponent), class: 'btn btn-sm btn-warning me-1' %>
+            <%= link_to 'Apagar', proponent_path(proponent), method: :delete, data: { confirm: 'Tem certeza disso?' }, class: 'btn btn-sm btn-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="d-flex justify-content-center mt-4">
+    <%= paginate @proponents %>
+  </div>
+</div>

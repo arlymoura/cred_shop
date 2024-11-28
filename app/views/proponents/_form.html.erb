@@ -1,0 +1,109 @@
+ <%= form_with(model: proponent) do |f| %>
+  <% if proponent.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(proponent.errors.count, "error") %> prohibited this proponent from being saved:</h2>
+
+      <ul>
+        <% proponent.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= f.label :name, class: 'form-label' %>
+    <%= f.text_field :name, class: 'form-control', required: true %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :cpf, class: 'form-label' %>
+    <%= f.number_field :cpf, class: 'form-control', required: true %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :date_of_birth, class: 'form-label' %>
+    <%= f.date_field :date_of_birth, class: 'form-control', required: true %>
+  </div>
+
+  <h3 class="mt-4">Address</h3>
+  <div class="row g-3">
+    <%= f.fields_for :address do |a| %>
+      <div class="col-md-6">
+        <%= a.label :street, class: 'form-label' %>
+        <%= a.text_field :street, class: 'form-control', required: true %>
+      </div>
+
+      <div class="col-md-3">
+        <%= a.label :number, class: 'form-label' %>
+        <%= a.text_field :number, class: 'form-control', required: true %>
+      </div>
+
+      <div class="col-md-3">
+        <%= a.label :neighborhood, class: 'form-label' %>
+        <%= a.text_field :neighborhood, class: 'form-control', required: true %>
+      </div>
+
+      <div class="col-md-6">
+        <%= a.label :city, class: 'form-label' %>
+        <%= a.text_field :city, class: 'form-control', required: true %>
+      </div>
+
+      <div class="col-md-3">
+        <%= a.label :state, class: 'form-label' %>
+        <%= a.text_field :state, class: 'form-control', required: true %>
+      </div>
+
+      <div class="col-md-3">
+        <%= a.label :zip_code, class: 'form-label' %>
+        <%= a.text_field :zip_code, class: 'form-control', required: true %>
+      </div>
+    <% end %>
+  </div>
+
+  <h3 class="mt-4">Financial Data</h3>
+  <div class="row g-3">
+    <%= f.fields_for :financial_info do |fd| %>
+      <div class="col-md-6">
+        <%= fd.label :salary, class: 'form-label' %>
+        <%= fd.number_field :salary,
+                          step: 0.01,
+                          min: 0,
+                          placeholder: "Digite o valor do Salário (e.g., 1234.56)",
+                          class: 'form-control',
+                          required: true %>
+    </div>
+
+    <div class="col-md-6">
+        <%= fd.label :inss_discount, class: 'form-label' %>
+        <%= fd.number_field :inss_discount,
+                          step: 0.01,
+                          min: 0,
+                          class: 'form-control',
+                          disabled: true,
+                          required: true %>
+      <% end %>
+    </div>
+  </div>
+
+  <h3 class="mt-4">Phones</h3>
+  <div class="row g-3">
+    <%= f.fields_for :phones do |p| %>
+      <div class="col-md-6">
+        <%= p.label :phone_number, class: 'form-label' %>
+        <%= p.text_field :phone_number, class: 'form-control', required: true %>
+      </div>
+
+      <div class="col-md-6">
+        <%= p.label :phone_type, class: 'form-label' %>
+        <%= p.select :phone_type, Phone.phone_types.keys.map { |key| [key.titleize, key] }, {}, class: "form-select", required: true %>
+
+      </div>
+    <% end %>
+  </div>
+
+  <div class="mt-4 pull-right">
+    <%= link_to "Voltar", proponents_path, class: 'btn btn-danger' %>
+    <%= f.submit 'Salvar', class: 'btn btn-primary' %>
+  </div>
+<% end %>
