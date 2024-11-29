@@ -4,6 +4,11 @@ require 'faker'
 
 puts 'Seeding Proponets...'
 
+User.create!(
+  email: 'teste@teste.com',
+  password: '123456'
+)
+
 20.times do
   proponent = Proponent.create!(
     name: Faker::Name.name,

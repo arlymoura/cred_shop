@@ -60,6 +60,14 @@ http://localhost:3000/sidekiq
 
 
 ## Nota
-A gem devise para autenticação está configurada e instalda, o que pode ser feito para melhorar
-- Adicionar no `app/controllers/application_controller.rb` `before_action :authenticate_user!`
-- Ajustar o ajax para pegar o current user para a consulta de valor de desconto
+```bash
+- Para rodar os testes use:
+bin/test
+
+- Usuario para entrar
+email: teste@teste.com
+password: 123456
+
+Existe um arquivo chamaso `.sample.env`, é preciso fazera  copia dele e salvar como .env
+Ajuste de acordo como for usar local ou docker diretamente
+```
