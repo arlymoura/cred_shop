@@ -1,0 +1,61 @@
+<h1>Relatório de Funcionários por Faixa Salarial</h1>
+
+<!-- Exibindo a listagem -->
+<table class="table table-striped table-hover">
+    <thead class="table-dark">
+    <tr>
+      <th>Faixa Salarial</th>
+      <th>Quantidade de Funcionários</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @result[:report].each do |item| %>
+      <tr>
+        <td><%= item[:range] %></td>
+        <td><%= item[:count] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<canvas id="myChart" width="300" height="300"></canvas>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var ctx = document.getElementById('myChart').getContext('2d');
+
+    var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ["Até R$ 1.045,00", "De R$ 1.045,01 a R$ 2.089,60", "De R$ 2.089,61 até R$ 3.134,40", "De R$ 3.134,41 até R$ 6.101,06"],
+        datasets: [{
+          label: 'Número de Funcionários',
+          data: <%= @result[:chart_data]&.map{ |data| data[:value] } %>,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  });
+</script>
+
+
+
