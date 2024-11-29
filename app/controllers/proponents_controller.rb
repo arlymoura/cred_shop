@@ -49,6 +49,14 @@ class ProponentsController < ApplicationController
     end
   end
 
+  def calculate_inss
+    salary = params[:salary].to_f
+    inss = FinancialInfos::InssCalculator.call(salary)
+    render json: { inss: inss }
+  rescue ArgumentError => e
+    render json: { error: e.message }, status: :unprocessable_entity
+  end
+
   private
     def set_proponent
       @proponent = Proponent.find(params[:id])
@@ -58,7 +66,7 @@ class ProponentsController < ApplicationController
       params.require(:proponent).permit(
         :name, :cpf, :date_of_birth,
         address_attributes: %i[id street number neighborhood city state zip_code],
-        financial_info_attributes: %i[id salary],
+        financial_info_attributes: %i[id salary inss_discount],
         phones_attributes: %i[id phone_number phone_type]
       )
     end

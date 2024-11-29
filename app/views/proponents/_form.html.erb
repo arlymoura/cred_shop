@@ -76,9 +76,7 @@
 
     <div class="col-md-6">
         <%= fd.label :inss_discount, class: 'form-label' %>
-        <%= fd.number_field :inss_discount,
-                          step: 0.01,
-                          min: 0,
+        <%= fd.text_field :inss_discount,
                           class: 'form-control',
                           disabled: true,
                           required: true %>

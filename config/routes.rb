@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
-  resources :proponents
   devise_for :users
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  resources :proponents do
+    collection do
+      get :calculate_inss
+    end
+  end
+
+  root "proponents#index"
 end

@@ -3,3 +3,35 @@
 <%= render "form", proponent: @proponent %>
 
 <br>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const salaryInput = document.getElementById("proponent_financial_info_attributes_salary");
+    const inssInput = document.getElementById("proponent_financial_info_attributes_inss_discount");
+
+    let timeout = null;
+
+    salaryInput.addEventListener("input", () => {
+      clearTimeout(timeout);
+
+      timeout = setTimeout(() => {
+        const salary = parseFloat(salaryInput.value);
+        if (isNaN(salary) || salary <= 0) {
+          inssInput.value = "Valor inválido";
+          return;
+        }
+
+        fetch(`/proponents/calculate_inss?salary=${salary}`)
+          .then(response => response.json())
+          .then(data => {
+            if (data.inss) {
+              inssInput.value = `${data.inss}`;
+            } else {
+              inssInput.value = data.error || "Erro ao calcular";
+            }
+          });
+      }, 500);
+    });
+  });
+</script>
