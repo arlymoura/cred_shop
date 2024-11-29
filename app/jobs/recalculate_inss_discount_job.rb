@@ -5,7 +5,7 @@ class RecalculateInssDiscountJob < ApplicationJob
     proponent = Proponent.find(proponent_id)
     salary = proponent.financial_info.salary
 
-    inss_discount = FinancialInfos::InssCalculator.new(salary).call
+    inss_discount = FinancialInfos::InssCalculator.call(salary)
     proponent.financial_info.update(inss_discount: inss_discount)
   end
 end

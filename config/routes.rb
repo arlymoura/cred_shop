@@ -11,5 +11,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :reports, only: :index
+
   root "proponents#index"
 end
