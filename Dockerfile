@@ -1,7 +1,7 @@
 # Dockerfile
 
 # Use a imagem oficial do Ruby como base
-FROM ruby:3.2.2
+FROM ruby:3.2.0
 
 # Instale dependências do sistema
 RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
