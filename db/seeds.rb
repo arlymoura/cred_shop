@@ -19,9 +19,10 @@ puts 'Seeding Proponets...'
     state: Faker::Address.state_abbr,
     zip_code: Faker::Address.zip_code
   )
-
+  salary = Faker::Number.decimal(l_digits: 4, r_digits: 2)
   proponent.create_financial_info!(
-    salary: Faker::Number.decimal(l_digits: 4, r_digits: 2)
+    salary: salary,
+    inss_discount: FinancialInfos::InssCalculator.call(salary)
   )
 
   2.times do
