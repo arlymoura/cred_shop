@@ -24,7 +24,7 @@ class ProponentsController < ApplicationController
 
     respond_to do |format|
       if @proponent.save
-        format.html { redirect_to @proponent, notice: "Proponent was successfully created." }
+        format.html { redirect_to @proponent, notice: "Proponente criado com sucesso.." }
       else
         format.html { render :new, status: :unprocessable_entity }
       end
@@ -32,12 +32,13 @@ class ProponentsController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @proponent.update(proponent_params)
-        format.html { redirect_to @proponent, notice: "Proponent was successfully updated." }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-      end
+    @proponent = Proponent.find(params[:id])
+    if @proponent.update(proponent_params)
+      RecalculateInssDiscountJob.perform_later(@proponent.id)
+
+      redirect_to @proponent, notice: 'Proponente atualizado com sucesso.'
+    else
+      render :edit
     end
   end
 
@@ -45,7 +46,7 @@ class ProponentsController < ApplicationController
     @proponent.destroy
 
     respond_to do |format|
-      format.html { redirect_to proponents_path, status: :see_other, notice: "Proponent was successfully destroyed." }
+      format.html { redirect_to proponents_path, status: :see_other, notice: "Proponente apagado com sucesso." }
     end
   end
 
